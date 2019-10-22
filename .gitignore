@@ -2,6 +2,7 @@
 /dist
 /node_modules
 /mysql_data
+/src/coverage
 
 # Logs
 logs
