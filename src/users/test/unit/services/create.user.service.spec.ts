@@ -27,12 +27,12 @@ describe('CreateUserService', () => {
   describe('create', () => {
     it('should create user', async () => {
         const user: User = {
-            user_id: '123123123',
-            full_name: 'Rafael Pezzetti',
+            userId: '123123123',
+            fullName: 'Rafael Pezzetti',
             password: '123456',
             email: 'rafael@pezzetti.com',
         };
-        jest.spyOn(repositoryMock,'save').mockResolvedValueOnce(user);        
+        jest.spyOn(repositoryMock, 'save').mockResolvedValueOnce(user);
         expect(await service.create(user)).toEqual(user);
         expect(repositoryMock.save).toBeCalled();
     });

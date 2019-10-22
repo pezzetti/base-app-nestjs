@@ -10,30 +10,29 @@ class CreateUserService {
 }
 describe('CreateUserApplication', () => {
   let application: CreateUserApplication;
-  let service: CreateUserService;
   beforeAll(async () => {
     const app = await Test.createTestingModule({
       providers: [
         CreateUserApplication,
           {
-            provide: TYPES.services.ICreateUserService, 
+            provide: TYPES.services.ICreateUserService,
             useClass: CreateUserService,
           },
         ],
     }).compile();
 
-    application = app.get<CreateUserApplication>(CreateUserApplication);    
+    application = app.get<CreateUserApplication>(CreateUserApplication);
   });
 
   describe('create', () => {
     it('should create user', async () => {
         const user: User = {
-            user_id: '123123123',
-            full_name: 'Rafael Pezzetti',
+            userId: '123123123',
+            fullName: 'Rafael Pezzetti',
             password: '123456',
             email: 'rafael@pezzetti.com',
-        };        
-        expect(await application.create(user)).toEqual(user);        
+        };
+        expect(await application.create(user)).toEqual(user);
     });
   });
 });

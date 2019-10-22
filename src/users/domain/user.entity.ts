@@ -5,10 +5,10 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 export class User {
 
   @PrimaryGeneratedColumn('uuid')
-  user_id: string;
+  userId: string;
 
   @Column({ length: 100 })
-  full_name: string;
+  fullName: string;
 
   @Column({ length: 100 })
   email: string;
