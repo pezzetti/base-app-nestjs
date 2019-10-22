@@ -1,0 +1,15 @@
+version: '3'
+services:
+ mysql:
+  image: mysql:5.5
+  container_name: mysql
+  ports:
+    - 3306:3306
+  volumes:
+    - ./db_dump.sql:/docker-entrypoint-initdb.d/db_dump.sql
+    - ./mysql_data:/var/lib/mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: mysql
+    MYSQL_DATABASE: test_db
+    MYSQL_USER: user
+    MYSQL_PASSWORD: password
