@@ -1,7 +1,7 @@
 import {PipeTransform, ArgumentMetadata, BadRequestException, HttpStatus, Injectable} from '@nestjs/common';
 import { validate } from 'class-validator';
 import { plainToClass } from 'class-transformer';
-import {HttpException} from "@nestjs/common/exceptions/http.exception";
+import { HttpException } from '@nestjs/common/exceptions/http.exception';
 
 @Injectable()
 export class ValidationPipe implements PipeTransform<any> {
@@ -16,7 +16,7 @@ export class ValidationPipe implements PipeTransform<any> {
       return value;
     }
     const object = plainToClass(metatype, value);
-    const errors = await validate(object,{ whitelist: true, supressUnknownValues: true, forbidUnknownValues: true , forbidNonWhitelisted: true});
+    const errors = await validate(object, { whitelist: true, supressUnknownValues: true, forbidUnknownValues: true , forbidNonWhitelisted: true});
     if (errors.length > 0) {
       throw new HttpException({message: 'Invalid Payload', errors:  this.buildError(errors)}, HttpStatus.BAD_REQUEST);
     }
@@ -26,7 +26,7 @@ export class ValidationPipe implements PipeTransform<any> {
   private buildError(errors) {
     const result = {};
     errors.forEach(el => {
-      let prop = el.property;
+      const prop = el.property;
       Object.entries(el.constraints).forEach(constraint => {
         result[prop + constraint[0]] = `${constraint[1]}`;
       });

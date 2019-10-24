@@ -2,11 +2,15 @@ import { Controller, Inject, Post, Res, Body, HttpStatus, UsePipes, Get, Param, 
 import { UserDomain } from '../domain/user.domain';
 import { TYPES } from '../interfaces/types';
 import { ICreateUserApplication } from '../interfaces/applications/create.user.application.interface';
-import { ValidationPipe } from 'src/common/validation.pipe';
+import { ValidationPipe } from '../../common/validation.pipe';
+import { IGetUserApplication } from '../interfaces/applications/get.user.application.interface';
 
 @Controller('users')
 export class UsersController {
-    constructor(@Inject(TYPES.applications.ICreateUserApplication) private createUserApp: ICreateUserApplication) { }
+    constructor(
+        @Inject(TYPES.applications.ICreateUserApplication) private createUserApp: ICreateUserApplication,
+        @Inject(TYPES.applications.IGetUserApplication) private getUserApp: IGetUserApplication,
+    ) { }
 
     @UsePipes(new ValidationPipe())
     @Post('/create')
@@ -17,6 +21,7 @@ export class UsersController {
 
     @Get(':id')
     async findOne(@Param('id', new ParseUUIDPipe()) id) {
-        return {requestedID: id};
+        const user = await this.getUserApp.getById(id);
+        return user;
     }
 }
