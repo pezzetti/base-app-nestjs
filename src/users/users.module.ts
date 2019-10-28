@@ -15,13 +15,8 @@ const createUserService = { provide: TYPES.services.ICreateUserService, useClass
 const getUserService = { provide: TYPES.services.IGetUserService, useClass: GetUserService };
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])],
-  controllers: [UsersController],
-  providers: [
-    createUserApp,
-    getUserApp,
-    createUserService,
-    getUserService,
-  ],
+    imports: [TypeOrmModule.forFeature([User])],
+    controllers: [UsersController],
+    providers: [createUserApp, getUserApp, createUserService, getUserService],
 })
 export class UsersModule {}

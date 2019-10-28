@@ -6,8 +6,7 @@ import { IGetUserService } from '../interfaces/services/get.user.service.interfa
 
 @Injectable()
 export class GetUserApplication implements IGetUserApplication {
-
-    constructor(@Inject(TYPES.services.IGetUserService) private getUserService: IGetUserService) { }
+    constructor(@Inject(TYPES.services.IGetUserService) private getUserService: IGetUserService) {}
 
     async getById(id: string): Promise<UserDomain> {
         const user = await this.getUserService.getById(id);
@@ -16,5 +15,4 @@ export class GetUserApplication implements IGetUserApplication {
         }
         return user;
     }
-
 }

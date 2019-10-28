@@ -5,8 +5,8 @@ import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [UsersModule, TypeOrmModule.forRoot()],
-  controllers: [AppController],
-  providers: [AppService],
+    imports: [UsersModule, TypeOrmModule.forRoot()],
+    controllers: [AppController],
+    providers: [AppService],
 })
 export class AppModule {}

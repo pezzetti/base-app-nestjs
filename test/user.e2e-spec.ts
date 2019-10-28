@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 
-describe('AppController (e2e)', () => {
+describe('UserController (e2e)', () => {
   let app;
 
   beforeEach(async () => {
@@ -15,10 +15,14 @@ describe('AppController (e2e)', () => {
   });
   afterEach(() => app.close());
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+  describe('GetById', () => {
+    const id = '6c946852-d655-475e-8a7a-608a0077255a';
+    it('/ (GET)', () => {
+        return request(app.getHttpServer())
+        .get(`/users/${id}`)
+        .expect(404);
+      });
+
   });
+
 });

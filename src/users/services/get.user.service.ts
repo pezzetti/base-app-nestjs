@@ -7,11 +7,9 @@ import { IGetUserService } from '../interfaces/services/get.user.service.interfa
 
 @Injectable()
 export class GetUserService implements IGetUserService {
-
-    constructor(@InjectRepository(User) private usersRepository: Repository<User>) { }
+    constructor(@InjectRepository(User) private usersRepository: Repository<User>) {}
 
     async getById(id: string): Promise<UserDomain> {
         return this.usersRepository.findOne({ userId: id });
     }
-
 }

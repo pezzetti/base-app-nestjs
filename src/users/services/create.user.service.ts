@@ -7,11 +7,9 @@ import { ICreateUserService } from '../interfaces/services/create.user.service.i
 
 @Injectable()
 export class CreateUserService implements ICreateUserService {
-
-    constructor(@InjectRepository(User) private usersRepository: Repository<User>) { }
+    constructor(@InjectRepository(User) private usersRepository: Repository<User>) {}
 
     async create(user: UserDomain): Promise<UserDomain> {
         return this.usersRepository.save(user);
     }
-
 }

@@ -10,7 +10,7 @@ export class UsersController {
     constructor(
         @Inject(TYPES.applications.ICreateUserApplication) private createUserApp: ICreateUserApplication,
         @Inject(TYPES.applications.IGetUserApplication) private getUserApp: IGetUserApplication,
-    ) { }
+    ) {}
 
     @UsePipes(new ValidationPipe())
     @Post('/create')

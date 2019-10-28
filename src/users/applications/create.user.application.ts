@@ -6,11 +6,9 @@ import { ICreateUserService } from '../interfaces/services/create.user.service.i
 
 @Injectable()
 export class CreateUserApplication implements ICreateUserApplication {
-
-    constructor(@Inject(TYPES.services.ICreateUserService) private userService: ICreateUserService) { }
+    constructor(@Inject(TYPES.services.ICreateUserService) private userService: ICreateUserService) {}
 
     async create(user: UserDomain): Promise<UserDomain> {
         return this.userService.create(user);
     }
-
 }

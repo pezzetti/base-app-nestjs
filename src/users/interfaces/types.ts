@@ -7,4 +7,4 @@ export const TYPES = {
         ICreateUserApplication: 'ICreateUserApplication',
         IGetUserApplication: 'IGetUserApplication',
     },
-  };
+};
