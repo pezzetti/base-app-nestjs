@@ -1,7 +1,6 @@
 # NestJS API boilerplate
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/a32038f660cfc3acd273/maintainability)](https://codeclimate.com/github/pezzetti/base-app-nestjs/maintainability)
-
 [![Build Status](https://travis-ci.org/pezzetti/base-app-nestjs.svg?branch=master)](https://travis-ci.org/pezzetti/base-app-nestjs)
 
 ## Description
