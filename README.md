@@ -1,7 +1,13 @@
+# NestJS API boilerplate
 ## Description
-  Base app created with NestJS <3
-### 
-- Domain Driven Design Architecture
+  Base api created with NestJS using TypeORM
+
+###  Folder structure
+    Code organization based on nestjs modules with Domain Driven Design, focused on codebase scalability.
+
+### SOLID
+    Using SOLID principles to provide better code design for easier maintenance and testing.
+
 
 ## Installation
 
