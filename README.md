@@ -1,4 +1,7 @@
 # NestJS API boilerplate
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/a32038f660cfc3acd273/maintainability)](https://codeclimate.com/github/pezzetti/base-app-nestjs/maintainability)
+
 ## Description
   Base api created with NestJS using TypeORM
 
