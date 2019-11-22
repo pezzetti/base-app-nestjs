@@ -4,3 +4,7 @@ node_js:
 cache:
   directories:
     - "node_modules"
+install:
+  - npm install -g codecov
+script:
+  - npm test && codecov
