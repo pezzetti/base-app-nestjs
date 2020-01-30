@@ -29,6 +29,7 @@
     "class-validator": "^0.10.2",
     "mongodb": "^3.3.3",
     "mysql": "^2.17.1",
+    "nyc": "^14.1.1",
     "pg": "^7.12.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
@@ -44,6 +45,7 @@
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.5",
     "@types/supertest": "^2.0.8",
+    "husky": "^4.2.1",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
     "supertest": "^4.0.2",
@@ -53,6 +55,12 @@
     "tsconfig-paths": "^3.9.0",
     "tslint": "^5.20.0",
     "typescript": "^3.6.3"
+  },
+  "husky": {
+    "hooks": {
+        "pre-commit": "npm run test",
+        "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   },
   "jest": {
     "moduleFileExtensions": [
