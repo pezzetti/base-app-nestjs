@@ -45,6 +45,8 @@
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.5",
     "@types/supertest": "^2.0.8",
+    "@commitlint/cli": "^8.3.4",
+    "@commitlint/config-conventional": "^8.3.4",
     "husky": "^4.2.1",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
@@ -58,9 +60,14 @@
   },
   "husky": {
     "hooks": {
-        "pre-commit": "npm run test",
-        "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+      "pre-commit": "npm run test",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
   "jest": {
     "moduleFileExtensions": [
