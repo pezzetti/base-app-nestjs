@@ -1,10 +1,24 @@
+env:
+  global:
+    CC_TEST_REPORTER_ID=fac5501c6fc9252f0267b01c5c14130fabb39b93db89d2400d75671c4cdc3447
 language: node_js
 node_js:
   - "stable"
 cache:
   directories:
     - "node_modules"
-install:
-  - npm install -g codecov
+before_script:
+  - yarn global add nyc
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
 script:
-  - npm test && codecov
+  - nyc --reporter=lcov yarn run test:cov
+
+after_script:
+  - ./cc-test-reporter format-coverage -t lcov --prefix "/home/travis/build/pezzetti/base-app-nestjs/src/coverage/lcov.info"
+  - ./cc-test-reporter after-build -t lcov --exit-code $TRAVIS_TEST_RESULT
+
+notifications:
+  email: false    
