@@ -4,14 +4,16 @@
 [![Build Status](https://travis-ci.org/pezzetti/base-app-nestjs.svg?branch=master)](https://travis-ci.org/pezzetti/base-app-nestjs)
 
 ## Description
-  Base api created with NestJS using TypeORM
+  Base application API made with NestJS, TypeORM, GraphQL, and Jest
 
 ###  Folder structure
-    Code organization based on nestjs modules with Domain Driven Design, focused on codebase scalability.
+    Code organization based on NestJS modules with Domain Driven Design, focused on codebase scalability.
 
 ### SOLID
     Using SOLID principles to provide better code design for easier maintenance and testing.
 
+### GraphQL / REST
+    You can either create API's REST or Graphql
 
 ## Installation
 
@@ -31,6 +33,11 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+```
+
+## Endpoints
+```
+/users or /graphql
 ```
 
 ## Test
