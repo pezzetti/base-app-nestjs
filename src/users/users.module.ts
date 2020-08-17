@@ -7,6 +7,7 @@ import { CreateUserApplication } from './applications/create.user.application';
 import { TYPES } from './interfaces/types';
 import { GetUserApplication } from './applications/get.user.application';
 import { GetUserService } from './services/get.user.service';
+import { UserResolver } from './resolver/user.resolver';
 
 const createUserApp = { provide: TYPES.applications.ICreateUserApplication, useClass: CreateUserApplication };
 const getUserApp = { provide: TYPES.applications.IGetUserApplication, useClass: GetUserApplication };
@@ -17,6 +18,7 @@ const getUserService = { provide: TYPES.services.IGetUserService, useClass: GetU
 @Module({
     imports: [TypeOrmModule.forFeature([User])],
     controllers: [UsersController],
-    providers: [createUserApp, getUserApp, createUserService, getUserService],
+    providers: [createUserApp, getUserApp, createUserService, getUserService, UserResolver],
+    exports: [UserResolver],
 })
 export class UsersModule {}
