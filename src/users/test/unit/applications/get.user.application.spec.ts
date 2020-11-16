@@ -1,8 +1,9 @@
 import { Test } from '@nestjs/testing';
-import { User } from '../../../domain/user.entity';
-import { GetUserApplication } from '../../../applications/get.user.application';
-import { TYPES } from '../../../interfaces/types';
 import { NotFoundException } from '@nestjs/common';
+import { GetUserService } from 'src/users/interfaces/services/get.user.service.interface';
+import { GetUserApplicationImpl } from '../../../applications/get.user.application';
+import { TYPES } from '../../../interfaces/types';
+import { User } from '../../../domain/user.entity';
 
 const user: User = {
     userId: '123123123',
@@ -11,28 +12,26 @@ const user: User = {
     email: 'rafael@pezzetti.com',
 };
 
-class GetUserService {
-    getById(userId) {
-        return user;
-    }
+class MockGetUserService {
+    getById = jest.fn().mockResolvedValue(user);
 }
 
 describe('GetUserApplication', () => {
-    let application: GetUserApplication;
+    let application: GetUserApplicationImpl;
     let service: GetUserService;
     beforeAll(async () => {
         const app = await Test.createTestingModule({
             providers: [
-                GetUserApplication,
+                GetUserApplicationImpl,
                 {
-                    provide: TYPES.services.IGetUserService,
-                    useClass: GetUserService,
+                    provide: TYPES.services.GetUserService,
+                    useClass: MockGetUserService,
                 },
             ],
         }).compile();
 
-        service = app.get<GetUserService>(TYPES.services.IGetUserService);
-        application = app.get<GetUserApplication>(GetUserApplication);
+        service = app.get(TYPES.services.GetUserService);
+        application = app.get<GetUserApplicationImpl>(GetUserApplicationImpl);
     });
 
     describe('getById', () => {
@@ -40,14 +39,21 @@ describe('GetUserApplication', () => {
             expect(await application.getById(user.userId)).toEqual(user);
         });
 
-        it('throws 404 error when user is not found', async () => {
-            jest.spyOn(service, 'getById').mockImplementation(() => null);
-            try {
-                await application.getById(user.userId);
-            } catch (error) {
-                expect(error).toBeInstanceOf(NotFoundException);
-                expect(error.message.message).toEqual(`User with id ${user.userId} was not found`);
-            }
+        it('throws 404 error when user is not found', done => {
+            service.getById = jest.fn().mockResolvedValue(null);
+            application
+                .getById(user.userId)
+                .then(() => {
+                    done('Should not get here');
+                })
+                .catch(error => {
+                    expect(service.getById).toHaveBeenCalled();
+                    expect(error).toBeInstanceOf(NotFoundException);
+                    expect(error.message.message).toEqual(
+                        `User with id ${user.userId} was not found`
+                    );
+                    done();
+                });
         });
     });
 });

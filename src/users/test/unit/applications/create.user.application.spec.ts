@@ -1,38 +1,44 @@
 import { Test } from '@nestjs/testing';
+import { CreateUserService } from 'src/users/interfaces/services/create.user.service.interface';
 import { User } from '../../../domain/user.entity';
-import { CreateUserApplication } from '../../../applications/create.user.application';
+import { CreateUserApplicationImpl } from '../../../applications/create.user.application';
 import { TYPES } from '../../../interfaces/types';
 
-class CreateUserService {
-    create(user) {
-        return user;
-    }
+const user: User = {
+    userId: '123123123',
+    fullName: 'Rafael Pezzetti',
+    password: '123456',
+    email: 'rafael@pezzetti.com',
+};
+class MockCreateUserService {
+    create = jest.fn().mockResolvedValue(user);
 }
+
 describe('CreateUserApplication', () => {
-    let application: CreateUserApplication;
+    let application: CreateUserApplicationImpl;
+    let mockService: CreateUserService;
+
     beforeAll(async () => {
         const app = await Test.createTestingModule({
             providers: [
-                CreateUserApplication,
+                CreateUserApplicationImpl,
                 {
-                    provide: TYPES.services.ICreateUserService,
-                    useClass: CreateUserService,
+                    provide: TYPES.services.CreateUserService,
+                    useClass: MockCreateUserService,
                 },
             ],
         }).compile();
 
-        application = app.get<CreateUserApplication>(CreateUserApplication);
+        application = app.get<CreateUserApplicationImpl>(
+            CreateUserApplicationImpl
+        );
+        mockService = app.get(TYPES.services.CreateUserService);
     });
 
     describe('create', () => {
         it('should create user', async () => {
-            const user: User = {
-                userId: '123123123',
-                fullName: 'Rafael Pezzetti',
-                password: '123456',
-                email: 'rafael@pezzetti.com',
-            };
             expect(await application.create(user)).toEqual(user);
+            expect(mockService.create).toBeCalled();
         });
     });
 });

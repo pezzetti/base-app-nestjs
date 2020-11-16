@@ -1,24 +1,42 @@
 import { Module } from '@nestjs/common';
-import { UsersController } from './controller/users.controller';
-import { CreateUserService } from './services/create.user.service';
-import { User } from './domain/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CreateUserApplication } from './applications/create.user.application';
+import { UsersController } from './controller/users.controller';
+import { CreateUserServiceImpl } from './services/create.user.service';
+import { User } from './domain/user.entity';
+import { CreateUserApplicationImpl } from './applications/create.user.application';
 import { TYPES } from './interfaces/types';
-import { GetUserApplication } from './applications/get.user.application';
-import { GetUserService } from './services/get.user.service';
+import { GetUserApplicationImpl } from './applications/get.user.application';
+import { GetUserServiceImpl } from './services/get.user.service';
 import { UserResolver } from './resolver/user.resolver';
 
-const createUserApp = { provide: TYPES.applications.ICreateUserApplication, useClass: CreateUserApplication };
-const getUserApp = { provide: TYPES.applications.IGetUserApplication, useClass: GetUserApplication };
+const createUserApp = {
+    provide: TYPES.applications.CreateUserApplication,
+    useClass: CreateUserApplicationImpl,
+};
+const getUserApp = {
+    provide: TYPES.applications.GetUserApplication,
+    useClass: GetUserApplicationImpl,
+};
 
-const createUserService = { provide: TYPES.services.ICreateUserService, useClass: CreateUserService };
-const getUserService = { provide: TYPES.services.IGetUserService, useClass: GetUserService };
+const createUserService = {
+    provide: TYPES.services.CreateUserService,
+    useClass: CreateUserServiceImpl,
+};
+const getUserService = {
+    provide: TYPES.services.GetUserService,
+    useClass: GetUserServiceImpl,
+};
 
 @Module({
     imports: [TypeOrmModule.forFeature([User])],
     controllers: [UsersController],
-    providers: [createUserApp, getUserApp, createUserService, getUserService, UserResolver],
+    providers: [
+        createUserApp,
+        getUserApp,
+        createUserService,
+        getUserService,
+        UserResolver,
+    ],
     exports: [UserResolver],
 })
 export class UsersModule {}

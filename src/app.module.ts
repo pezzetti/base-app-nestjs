@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ORMConfig } from './ormconfig';
 import { GraphQLModule } from '@nestjs/graphql';
+import { UsersModule } from './users/users.module';
+import { ORMConfig } from './ormconfig';
 
 @Module({
     imports: [

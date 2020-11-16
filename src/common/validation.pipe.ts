@@ -1,48 +1,57 @@
-import { PipeTransform, ArgumentMetadata, BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
-import { validate } from 'class-validator';
+import {
+    ArgumentMetadata,
+    Injectable,
+    PipeTransform,
+    BadRequestException,
+} from '@nestjs/common';
+import { validate, ValidationError } from 'class-validator';
 import { plainToClass } from 'class-transformer';
-import { HttpException } from '@nestjs/common/exceptions/http.exception';
-
+import { ValidatorOptions } from '@nestjs/common/interfaces/external/validator-options.interface';
 @Injectable()
-export class ValidationPipe implements PipeTransform<any> {
-    async transform(value, metadata: ArgumentMetadata) {
-        if (!value) {
-            throw new BadRequestException('No data submitted');
-        }
+export class ValidationPipe implements PipeTransform {
+    constructor(
+        private classToValidateAgainst: Function,
+        private validationOptions: ValidatorOptions = {}
+    ) {}
 
-        const { metatype } = metadata;
-        if (!metatype || !this.toValidate(metatype)) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async transform(value: any, { metatype }: ArgumentMetadata): Promise<any> {
+        if (!metatype || this.toValidate(metatype)) {
             return value;
         }
+
         const object = plainToClass(metatype, value);
         const errors = await validate(object, {
             whitelist: true,
-            supressUnknownValues: true,
-            forbidUnknownValues: true,
             forbidNonWhitelisted: true,
+            ...this.validationOptions,
         });
+
         if (errors.length > 0) {
-            throw new HttpException(
-                { message: 'Invalid Payload', errors: this.buildError(errors) },
-                HttpStatus.BAD_REQUEST,
+            // Flatten all error messages
+            const constraints: { [type: string]: string }[] = [];
+
+            // ValidationError is a recursive type
+            const findConstraints = (err: ValidationError): void => {
+                if (err.constraints) constraints.push(err.constraints);
+                if (err.children)
+                    err.children.forEach(child => findConstraints(child));
+            };
+
+            errors.forEach(err => findConstraints(err));
+
+            throw new BadRequestException(
+                'Validation Failed',
+                constraints
+                    .flatMap(constraint => Object.values(constraint))
+                    .join(', ')
             );
         }
         return value;
     }
 
-    private buildError(errors) {
-        const result = {};
-        errors.forEach(el => {
-            const prop = el.property;
-            Object.entries(el.constraints).forEach(constraint => {
-                result[prop + constraint[0]] = `${constraint[1]}`;
-            });
-        });
-        return result;
-    }
-
-    private toValidate(metatype): boolean {
-        const types = [String, Boolean, Number, Array, Object];
-        return !types.find(type => metatype === type);
+    private toValidate(metatype: Function): boolean {
+        const types: Function[] = [this.classToValidateAgainst];
+        return !types.includes(metatype);
     }
 }
