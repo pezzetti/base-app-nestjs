@@ -34,7 +34,7 @@ export class ValidationPipe implements PipeTransform {
             // ValidationError is a recursive type
             const findConstraints = (err: ValidationError): void => {
                 if (err.constraints) constraints.push(err.constraints);
-                if (err.children)
+                if (err.children && err.children.length > 0)
                     err.children.forEach(child => findConstraints(child));
             };
 
