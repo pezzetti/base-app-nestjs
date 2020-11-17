@@ -1,8 +1,13 @@
-import { IsString, IsEmail, ValidateNested, IsBoolean, IsNotEmpty } from 'class-validator';
+import {
+    IsString,
+    IsEmail,
+    ValidateNested,
+    IsBoolean,
+    IsNotEmpty,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 import { HttpException } from '@nestjs/common';
 import { ValidationPipe } from '../validation.pipe';
-
 
 class TestToken {
     @IsString()
