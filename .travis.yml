@@ -8,17 +8,11 @@ cache:
   directories:
     - "node_modules"
 before_script:
-  - yarn global add nyc
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+  - npm install -g codecov
+  - npm install -g jest
 
 script:
-  - nyc --reporter=lcov yarn run test:cov
-
-after_script:
-  - ./cc-test-reporter format-coverage -t lcov --prefix "/home/travis/build/pezzetti/base-app-nestjs/src/coverage/lcov.info"
-  - ./cc-test-reporter after-build -t lcov --exit-code $TRAVIS_TEST_RESULT
+  - jest --ci --coverage && codecov
 
 notifications:
-  email: false    
+  email: false
