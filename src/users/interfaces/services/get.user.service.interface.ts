@@ -1,5 +1,5 @@
 import { UserDomain } from 'src/users/domain/user.domain';
 
-export interface IGetUserService {
-    getById(id: string): Promise<UserDomain>;
+export interface GetUserService {
+    getById(id: string): Promise<UserDomain | undefined>;
 }

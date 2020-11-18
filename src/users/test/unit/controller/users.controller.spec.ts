@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { CreateUserApplication } from 'src/users/interfaces/applications/create.user.application.interface';
+import { GetUserApplication } from 'src/users/interfaces/applications/get.user.application.interface';
 import { UsersController } from '../../../controller/users.controller';
 import { TYPES } from '../../../interfaces/types';
-import { userInfo } from 'os';
 
 const user = {
     userId: '123123123',
@@ -11,44 +12,38 @@ const user = {
 };
 
 class CreateUserApplicationMock {
-    create(obj) {
-        return user;
-    }
+    create = jest.fn().mockResolvedValue(user);
 }
 
 class GetUserApplicationMock {
-    getById(id) {
-        return user;
-    }
+    getById = jest.fn().mockResolvedValue(user);
 }
 
 describe('Users Controller', () => {
     let controller: UsersController;
-    let createUserAppMock;
-    let getUserAppMock;
-    const response = {
-        status: (code: number) => response,
-        json: json => json,
-    };
+    let createUserAppMock: CreateUserApplication;
+    let getUserAppMock: GetUserApplication;
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             controllers: [UsersController],
             providers: [
                 {
-                    provide: TYPES.applications.ICreateUserApplication,
+                    provide: TYPES.applications.CreateUserApplication,
                     useClass: CreateUserApplicationMock,
                 },
                 {
-                    provide: TYPES.applications.IGetUserApplication,
+                    provide: TYPES.applications.GetUserApplication,
                     useClass: GetUserApplicationMock,
                 },
             ],
         }).compile();
 
         controller = module.get<UsersController>(UsersController);
-        createUserAppMock = module.get(TYPES.applications.ICreateUserApplication);
-        getUserAppMock = module.get(TYPES.applications.IGetUserApplication);
+        createUserAppMock = module.get(
+            TYPES.applications.CreateUserApplication
+        );
+        getUserAppMock = module.get(TYPES.applications.GetUserApplication);
     });
 
     it('should be defined', () => {
@@ -66,7 +61,7 @@ describe('Users Controller', () => {
         it('should create user', async () => {
             jest.spyOn(createUserAppMock, 'create');
 
-            expect(await controller.create(response, user)).toEqual(user);
+            expect(await controller.create(user)).toEqual(user);
             expect(createUserAppMock.create).toBeCalled();
         });
     });
