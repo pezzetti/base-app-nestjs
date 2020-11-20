@@ -2,6 +2,7 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/a32038f660cfc3acd273/maintainability)](https://codeclimate.com/github/pezzetti/base-app-nestjs/maintainability)
 [![Build Status](https://travis-ci.org/pezzetti/base-app-nestjs.svg?branch=master)](https://travis-ci.org/pezzetti/base-app-nestjs)
+[![codecov](https://codecov.io/gh/pezzetti/base-app-nestjs/branch/master/graph/badge.svg?token=3Vv7si5MSD)](https://codecov.io/gh/pezzetti/base-app-nestjs)
 
 ## Description
   Base application API made with NestJS, TypeORM, GraphQL, and Jest
