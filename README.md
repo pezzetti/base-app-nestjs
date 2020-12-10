@@ -41,6 +41,11 @@ $ npm run start:prod
 /users or /graphql
 ```
 
+## Swagger documentation
+```
+/docs
+```
+
 ## Test
 
 ```bash

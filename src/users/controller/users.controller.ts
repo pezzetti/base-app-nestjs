@@ -8,7 +8,12 @@ import {
     Param,
     ParseUUIDPipe,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+    ApiCreatedResponse,
+    ApiNotFoundResponse,
+    ApiOkResponse,
+    ApiTags,
+} from '@nestjs/swagger';
 import { UserDomain } from '../domain/user.domain';
 import { TYPES } from '../interfaces/types';
 import { ValidationPipe } from '../../common/validation.pipe';
