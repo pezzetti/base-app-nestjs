@@ -1,11 +1,14 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { UsersModule } from './users/users.module';
-import { ORMConfig } from './ormconfig';
+import { getORMConfig } from './ormconfig';
+import { configuration } from './config/configuration';
 
 @Module({
     imports: [
+        ConfigModule.forRoot({ isGlobal: true, load: [configuration] }),
         GraphQLModule.forRoot({
             typePaths: ['./**/*.graphql'],
             resolverValidationOptions: {
@@ -13,7 +16,7 @@ import { ORMConfig } from './ormconfig';
             },
         }),
         UsersModule,
-        TypeOrmModule.forRoot(ORMConfig),
+        TypeOrmModule.forRoot(getORMConfig()),
     ],
 })
 export class AppModule {}
