@@ -21,6 +21,7 @@
 ```bash
 $ npm install
 $ docker-compose up -d
+$ cp .env-sample .env
 ```
 
 ## Running the app
