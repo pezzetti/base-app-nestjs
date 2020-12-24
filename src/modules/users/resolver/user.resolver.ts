@@ -1,6 +1,6 @@
 import { Resolver, Query, Args, ID, Mutation } from '@nestjs/graphql';
 import { Inject, UsePipes } from '@nestjs/common';
-import { ValidationPipe } from '../../common/validation.pipe';
+import { ValidationPipe } from '../../../common/validation.pipe';
 import { UserDomain } from '../domain/user.domain';
 import { TYPES } from '../interfaces/types';
 import { CreateUserApplication } from '../interfaces/applications/create.user.application.interface';

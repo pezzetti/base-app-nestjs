@@ -1,9 +1,9 @@
 import { Test } from '@nestjs/testing';
 import { NotFoundException } from '@nestjs/common';
-import { GetUserService } from 'src/users/interfaces/services/get.user.service.interface';
-import { GetUserApplicationImpl } from '../../../applications/get.user.application';
-import { TYPES } from '../../../interfaces/types';
-import { User } from '../../../domain/user.entity';
+import { GetUserService } from 'src/modules/users/interfaces/services/get.user.service.interface';
+import { GetUserApplicationImpl } from '../../applications/get.user.application';
+import { TYPES } from '../../interfaces/types';
+import { User } from '../../domain/user.entity';
 
 const user: User = {
     userId: '123123123',

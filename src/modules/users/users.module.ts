@@ -37,6 +37,6 @@ const getUserService = {
         getUserService,
         UserResolver,
     ],
-    exports: [UserResolver],
+    exports: [UserResolver, getUserService],
 })
 export class UsersModule {}

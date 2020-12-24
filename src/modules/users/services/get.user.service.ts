@@ -14,4 +14,8 @@ export class GetUserServiceImpl implements GetUserService {
     async getById(id: string): Promise<UserDomain | undefined> {
         return this.usersRepository.findOne({ userId: id });
     }
+
+    async getByEmail(email: string): Promise<UserDomain | undefined> {
+        return this.usersRepository.findOne({ email });
+    }
 }

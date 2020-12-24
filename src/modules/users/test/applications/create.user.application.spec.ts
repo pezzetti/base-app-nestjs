@@ -1,8 +1,8 @@
 import { Test } from '@nestjs/testing';
-import { CreateUserService } from 'src/users/interfaces/services/create.user.service.interface';
-import { User } from '../../../domain/user.entity';
-import { CreateUserApplicationImpl } from '../../../applications/create.user.application';
-import { TYPES } from '../../../interfaces/types';
+import { CreateUserService } from 'src/modules/users/interfaces/services/create.user.service.interface';
+import { User } from '../../domain/user.entity';
+import { CreateUserApplicationImpl } from '../../applications/create.user.application';
+import { TYPES } from '../../interfaces/types';
 
 const user: User = {
     userId: '123123123',

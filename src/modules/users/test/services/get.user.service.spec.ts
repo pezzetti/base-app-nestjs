@@ -1,9 +1,9 @@
 import { Test } from '@nestjs/testing';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { GetUserService } from 'src/users/interfaces/services/get.user.service.interface';
-import { GetUserServiceImpl } from '../../../services/get.user.service';
-import { User } from '../../../domain/user.entity';
+import { GetUserService } from 'src/modules/users/interfaces/services/get.user.service.interface';
+import { GetUserServiceImpl } from '../../services/get.user.service';
+import { User } from '../../domain/user.entity';
 
 describe('GetUserService', () => {
     let service: GetUserService;
@@ -34,6 +34,22 @@ describe('GetUserService', () => {
             jest.spyOn(repositoryMock, 'findOne').mockResolvedValueOnce(user);
             expect(await service.getById(user.userId)).toEqual(user);
             expect(repositoryMock.findOne).toBeCalled();
+        });
+    });
+
+    describe('getByEmail', () => {
+        it('should find user by id', async () => {
+            const user: User = {
+                userId: '123123123',
+                fullName: 'Rafael Pezzetti',
+                password: '123456',
+                email: 'rafael@pezzetti.com',
+            };
+            jest.spyOn(repositoryMock, 'findOne').mockResolvedValueOnce(user);
+            expect(await service.getByEmail(user.email)).toEqual(user);
+            expect(repositoryMock.findOne).toBeCalledWith({
+                email: user.email,
+            });
         });
     });
 });
