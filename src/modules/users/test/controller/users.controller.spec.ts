@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CreateUserApplication } from 'src/users/interfaces/applications/create.user.application.interface';
-import { GetUserApplication } from 'src/users/interfaces/applications/get.user.application.interface';
-import { UsersController } from '../../../controller/users.controller';
-import { TYPES } from '../../../interfaces/types';
+import { CreateUserApplication } from 'src/modules/users/interfaces/applications/create.user.application.interface';
+import { GetUserApplication } from 'src/modules/users/interfaces/applications/get.user.application.interface';
+import { UsersController } from '../../controller/users.controller';
+import { TYPES } from '../../interfaces/types';
 
 const user = {
     userId: '123123123',

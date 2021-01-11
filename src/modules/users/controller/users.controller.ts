@@ -16,7 +16,7 @@ import {
 } from '@nestjs/swagger';
 import { UserDomain } from '../domain/user.domain';
 import { TYPES } from '../interfaces/types';
-import { ValidationPipe } from '../../common/validation.pipe';
+import { ValidationPipe } from '../../../common/validation.pipe';
 import { GetUserApplication } from '../interfaces/applications/get.user.application.interface';
 import { CreateUserApplication } from '../interfaces/applications/create.user.application.interface';
 
