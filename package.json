@@ -23,7 +23,7 @@
         "@hapi/joi": "^16.1.7",
         "@nestjs/common": "^6.7.2",
         "@nestjs/config": "^0.6.1",
-        "@nestjs/core": "^6.7.2",
+        "@nestjs/core": "^9.0.5",
         "@nestjs/graphql": "^7.6.0",
         "@nestjs/jwt": "^10.0.1",
         "@nestjs/passport": "^7.1.5",
